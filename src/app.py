@@ -4,8 +4,8 @@ from pickle import load
 import streamlit as st
 
 
-model = load(model2, open('../models/decission_tree_regressor_42.sav', 'wb'))
-pca = pca(pca, open('../models/pca_model2.sav', 'wb'))
+model = load(open('../models/decission_tree_regressor_42.sav', 'rb'))
+pca = load(open('../models/pca_model2.sav', 'rb'))
 
 
 st.markdown(
