@@ -1,5 +1,3 @@
-from utils import db_connect
-engine = db_connect()
 
 # your code here
 from pickle import load
@@ -135,17 +133,41 @@ st.subheader("Actividad física")
 act_fisica = st.slider('Horas de actividad física', min_value=0, max_value=6, step=1)
 
 st.subheader("Actividades extracurriculares")
-act_fisica = st.toggle('¿Realiza alguna?')
+act_extra = st.toggle('¿Realiza alguna?')
 
 st.subheader("Involucramiento parental")
 env_parental = st.radio(
     'Eliga uno:',
-    ['Bajo, Medio, Alto'],
+    ['Bajo', 'Medio', 'Alto'],
     index=None)
 
+st.subheader("Tipo de escuela")
+tipo_escuela = st.radio(
+    'Eliga uno:',
+    ['Publica', 'Privada'],
+    index=None)
 
+st.subheader("Nivel educacional de los padres")
+neduc_padres = st.radio(
+    'Eliga uno:',
+    ['Enseñanza media', 'Universitaria', 'Postgrado'],
+    index=None)
 
+influencia=0
+Family_Income_num=0
+Access_to_Resources_num=0
+Motivation_Level_num=0
+Distance_from_Home_num=0
+Teacher_Quality_num=0
+Internet_Access_num=0
+Learning_Disabilities_num=0
 
+act_extra_dict= {'No': 0, 'Sí': 1}
+env_parental_dict= {'Bajo': 0, 'Medio': 1, 'Alto': 2}
+tipo_escuela_dict= {'Publica': 0, 'Privada': 1},
+neduc_padres_dict= {'Enseñanza media': 0,
+  'Universitaria': 1,
+  'Postgrado': 2}
 
 #Botón final
 st.markdown(
@@ -172,8 +194,7 @@ st.markdown(
 )
 
 if st.button('Predecir nota'):
-    prediccion = model.predict([
-        [area_dic[area], nsoceco_dic[nsoceco], personas_x_hogar,  educ_dic[educ],
-        sprev_salud_dic[sprev_salud], activ_dic[activ], ten_viv_dic[ten_viv]]
-    ]) 
-    st.write('Ingreso estimado:', prediccion)
+    conversion_pca = pca.transform([horas_estudio, asistencia, horas_sueño, nota_previa, tutoria, 
+                                    act_extra_dict[act_extra],env_parental_dict[env_parental], tipo_escuela_dict[tipo_escuela]], 
+                                    neduc_padres_dict[neduc_padres],0,0,0,0,0,0,0,0,0)
+    st.write('nota: ', model.predict(conversion_pca))
