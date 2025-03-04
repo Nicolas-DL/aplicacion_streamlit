@@ -120,10 +120,30 @@ st.subheader("Horas de estudio")
 horas_estudio = st.slider('Seleccione un número', min_value=0, max_value=44, step=1)
 
 st.subheader("% Asistencia")
-asistencia = st.slider('Seleccione un número', min_value=60, max_value=100, step=1)
+asistencia = st.slider('Seleccione un porcentaje', min_value=60, max_value=100, step=1)
 
 st.subheader("Horas de sueño")
 horas_sueño = st.slider('Seleccione un número', min_value=4, max_value=10, step=1)
+
+st.subheader("Nota previa")
+nota_previa = st.slider('Seleccione un número', min_value=50, max_value=100, step=5)
+
+st.subheader("Tutoría")
+tutoria = st.slider('Sesiones de tutoría', min_value=0, max_value=8, step=1)
+
+st.subheader("Actividad física")
+act_fisica = st.slider('Horas de actividad física', min_value=0, max_value=6, step=1)
+
+st.subheader("Actividades extracurriculares")
+act_fisica = st.toggle('¿Realiza alguna?')
+
+st.subheader("Involucramiento parental")
+env_parental = st.radio(
+    'Eliga uno:',
+    ['Bajo, Medio, Alto'],
+    index=None)
+
+
 
 
 
