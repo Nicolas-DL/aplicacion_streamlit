@@ -4,8 +4,8 @@ from pickle import load
 import streamlit as st
 
 
-model = load(open('../models/decission_tree_regressor_42.sav', 'rb'))
-pca = load(open('../models/pca_model2.sav', 'rb'))
+model = load(open('/workspaces/aplicacion_streamlit/models/decission_tree_regressor_42.sav', 'rb'))
+pca = load(open('/workspaces/aplicacion_streamlit/models/pca_model2.sav', 'rb'))
 
 
 st.markdown(
@@ -38,8 +38,6 @@ st.markdown(
 )
 
 # Título principal de la aplicación
-with st.container():
-    st.image("src/img.png",width=90)
 st.title('Predice tu nota en el examen')
 
 st.markdown(
@@ -117,7 +115,7 @@ st.markdown(
 st.subheader("Horas de estudio")
 horas_estudio = st.slider('Seleccione un número', min_value=0, max_value=44, step=1)
 
-st.subheader("% Asistencia")
+st.subheader("Porcentaje de asistencia")
 asistencia = st.slider('Seleccione un porcentaje', min_value=60, max_value=100, step=1)
 
 st.subheader("Horas de sueño")
@@ -162,12 +160,11 @@ Teacher_Quality_num=0
 Internet_Access_num=0
 Learning_Disabilities_num=0
 
-act_extra_dict= {'No': 0, 'Sí': 1}
+#
+act_extra_dict={False: 0, True: 1}
 env_parental_dict= {'Bajo': 0, 'Medio': 1, 'Alto': 2}
-tipo_escuela_dict= {'Publica': 0, 'Privada': 1},
-neduc_padres_dict= {'Enseñanza media': 0,
-  'Universitaria': 1,
-  'Postgrado': 2}
+tipo_escuela_dict= {'Publica': 0, 'Privada': 1}
+neduc_padres_dict= {'Enseñanza media': 0,'Universitaria': 1,'Postgrado': 2}
 
 #Botón final
 st.markdown(
@@ -194,7 +191,8 @@ st.markdown(
 )
 
 if st.button('Predecir nota'):
-    conversion_pca = pca.transform([horas_estudio, asistencia, horas_sueño, nota_previa, tutoria, 
-                                    act_extra_dict[act_extra],env_parental_dict[env_parental], tipo_escuela_dict[tipo_escuela]], 
-                                    neduc_padres_dict[neduc_padres],0,0,0,0,0,0,0,0,0)
+    conversion_pca = pca.transform([[horas_estudio, asistencia, horas_sueño, nota_previa, tutoria, act_fisica,
+                                    act_extra_dict[act_extra],env_parental_dict[env_parental], tipo_escuela_dict[tipo_escuela], 
+                                    neduc_padres_dict[neduc_padres],0,0,0,0,0,0,0,0,0]])
     st.write('nota: ', model.predict(conversion_pca))
+
