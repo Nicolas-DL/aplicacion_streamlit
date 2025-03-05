@@ -196,3 +196,4 @@ if st.button('Predecir nota'):
                                     neduc_padres_dict[neduc_padres],0,0,0,0,0,0,0,0,0]])
     st.write('nota: ', model.predict(conversion_pca))
 
+
